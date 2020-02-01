@@ -11,7 +11,7 @@
     
     
     const sortStudent = () => {
-        document.getElementById('studentForm').classList.add('invisible')
+        // document.getElementById('studentForm').classList.add('invisible')
         let name = document.getElementById('firstYearsName').value
         let randomhouse = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
         let houseNumber= Math.floor(Math.random()*randomhouse.length)
@@ -22,12 +22,17 @@
         studentPrinter(arrayOfStudents)
         
     }
+    document.getElementById('sortButton').addEventListener('click', sortStudent)
 
-    const expelStudent = () => {
-        const deleteId = object.id
-    }
     
+
+        
     
+   
+    // document.getElementById('expel').addEventListener('click', expelStudent)
+
+    
+  
     const printToDom = (divId, textToPrint) => {
         const selectedDiv = document.getElementById(divId);
         selectedDiv.innerHTML = textToPrint
@@ -42,12 +47,32 @@
           domString += '  <div class="card-body">';
           domString += `    <h5 class="card-title">${names[i].name}</h5>`;
           domString += `    <p class="card-text">${names[i].house}</p>`;
-          domString += `<button type="button" id="${names[i].id}" class="btn btn-light">Expel</button>`
+          domString += `<button type="button" class = "expel" id="${names[i].id}" class="btn btn-light">Expel</button>`
           domString += '  </div>';
           domString += '</div>';
           domString += '</div>';
         }
         printToDom('allStudents', domString);
+        activateExpel();
       };
 
-      document.getElementById('sortButton').addEventListener('click', sortStudent)
+//id is targeted after click of expel button and check to see if it's equal to array of students id
+      const expelStudent = (e) => {
+        console.log(e);
+        console.log(e.target.id)
+        for (let i = 0; i < arrayOfStudents.length; i++) {
+          if (e.target.id === arrayOfStudents[i].id){
+            arrayOfStudents.splice(i, 1);
+          };
+        };
+        studentPrinter(arrayOfStudents);
+        console.log(arrayOfStudents);
+      }
+// each student is given a unique ID when the expel button is clicked
+      const activateExpel = () => {
+        let getButton = document.getElementsByClassName("expel")
+        for (let i = 0; i < getButton.length; i++) {
+          getButton[i].addEventListener('click', expelStudent)
+        }
+      }
+      
