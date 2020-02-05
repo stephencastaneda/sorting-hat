@@ -40,13 +40,15 @@
     
       const studentPrinter = (names) => {
           console.log("student print please")
+        
+         
         let domString = '';
         for(let i = 0; i< names.length; i++){
           domString += '<div class="col-md-6 col-lg-4 card-separation">'
-          domString += '<div class="card">';
-          domString += '  <div class="card-body">';
-          domString += `    <h5 class="card-title">${names[i].name}</h5>`;
-          domString += `    <p class="card-text">${names[i].house}</p>`;
+          domString += '<div class="card ">';
+          domString += '<div class="card-body">';
+          domString += `<h5 class="card-title">${names[i].name}</h5>`;
+          domString += `<p class="card-text">${names[i].house}</p>`;
           domString += `<button type="button" class = "expel" id="${names[i].id}" class="btn btn-light">Expel</button>`
           domString += '  </div>';
           domString += '</div>';
@@ -54,8 +56,41 @@
         }
         printToDom('allStudents', domString);
         activateExpel();
+        houseColor()
       };
 
+
+      const houseColor = () => {
+        // // const houseArray = []
+        // // for (let i = 0; i <arrayOfStudents.length; i++) {
+
+        // // let houseName = document.querySelector(".card-text").textContent; 
+        // // houseArray.push(houseName);
+        // //  console.log(houseArray);
+        // }
+
+        const elements = document.getElementsByClassName("card-text")
+
+        for (let i = 0; i <elements.length; i++) {
+         
+          for (let i = 0; i <arrayOfStudents.length; i++) {
+            console.log(arrayOfStudents[i].house);
+           if (arrayOfStudents[i].house === 'Gryffindor') {
+             elements[i].classList.add("red");
+           } else if (arrayOfStudents[i].house === 'Hufflepuff') {
+             elements[i].classList.add("blue");
+           }
+           else if (arrayOfStudents[i].house === 'Ravenclaw') {
+             elements[i].classList.add("green");
+           }
+           else if (arrayOfStudents[i].house === 'Slytherin') {
+             elements[i].classList.add("orange");
+           };
+          }
+        }
+      }
+       
+     
 //id is targeted after click of expel button and check to see if it's equal to array of students id
       const expelStudent = (e) => {
         console.log(e);
@@ -75,4 +110,3 @@
           getButton[i].addEventListener('click', expelStudent)
         }
       }
-      
